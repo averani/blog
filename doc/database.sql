@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Loomise aeg: Okt 07, 2013 kell 03:31 PM
+-- Loomise aeg: Okt 20, 2013 kell 11:34 AM
 -- Serveri versioon: 5.5.32
 -- PHP versioon: 5.4.19
 
@@ -32,14 +32,15 @@ CREATE TABLE IF NOT EXISTS `post` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`post_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Andmete tõmmistamine tabelile `post`
 --
 
 INSERT INTO `post` (`post_id`, `post_subject`, `post_text`, `post_created`, `user_id`) VALUES
-(1, 'Teema', 'tekstteksttekst', '2013-10-01 15:08:22', 1);
+(1, 'Teema', 'tekstteksttekst', '2013-10-01 15:08:22', 1),
+(2, 'Teema', 'tekst tekst tekst', '2013-10-20 09:28:30', 1);
 
 -- --------------------------------------------------------
 
@@ -81,14 +82,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   `deleted` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Andmete tõmmistamine tabelile `user`
 --
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `deleted`) VALUES
-(1, 'demo', 'demo', 0);
+(1, 'demo', 'demo', 0),
+(2, 'DEMO', 'demo', 0),
+(3, 'User', '', 0),
+(5, 'User', 'user', 0);
 
 --
 -- Tõmmistatud tabelite piirangud

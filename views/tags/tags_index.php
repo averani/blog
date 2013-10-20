@@ -1,10 +1,18 @@
+<?
+$_tags=get_all("SELECT * FROM post_tags NATURAL JOIN tag");
 
+foreach ($_tags as $tag) {
+	$this ->tags[$tag['post_id']][] = $tag['tag_name'];}
+
+?>
 <div class="list-group">
-	<a href="#" class="list-group-item active">
-		Cras justo odio
-	</a>
+
+	<a href="#" class="list-group-item active">Cras justo odio</a>
 	<a href="#" class="list-group-item">Dapibus ac facilisis in</a>
 	<a href="#" class="list-group-item">Morbi leo risus</a>
 	<a href="#" class="list-group-item">Porta ac consectetur ac</a>
 	<a href="#" class="list-group-item">Vestibulum at eros</a>
+
 </div>
+
+
