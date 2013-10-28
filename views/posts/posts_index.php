@@ -10,8 +10,8 @@
 			?>
 		</p>
 		<div>
-			<span class="badge badge-success">Posted on <?=$post['post_created']?></span>
-			<?foreach($tags[$post['post_id']] as $tag):?>
+			<span class="badge badge-success">Posted on <?=$post['post_created']?> by <?=$post['username']?>.</span>
+			<?foreach ($tags[$post['post_id']] as $tag):?>
 				<a href="<?=BASE_URL?>tags/view/<?=$tag['tag_id']?>"><span class="label" style="background-color:#5bc0de"><?=$tag['tag_name']?></span></a>
 			<?endforeach?>
 		</div>

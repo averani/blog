@@ -5,7 +5,7 @@
 			str_replace("\n",'<br/>',substr($post['post_text'],0,150));
 			$post_length=strlen($post['post_text']);
 			if ($post_length>150){
-				echo "...";
+				echo "..";
 			};
 			?>
 		</p>
