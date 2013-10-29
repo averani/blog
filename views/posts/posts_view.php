@@ -29,30 +29,79 @@
 			</div>
 		</div>
 	</div>
-	<div class="media">
-		<?foreach($comment_id as $comment):?>
-			<a class="pull-left" href="#"></a>
-			<div class="media-body">
-				<h4 class="media-heading"><?=$comment['comment_author']?></h4>
-				<?=$comment['comment_text']?>
+
+
+
+	<form action="<?=BASE_URL?>posts/view/<?=$post['post_id']?>" method="post">
+			<div class="controls controls-row">
+				<input id="name" name="author" type="text" class="span3" style="width: 400px" placeholder="Anonüümne">
 			</div>
-		<?endforeach?>
+			<div class="controls">
+				<textarea id="message" name="komm" class="span6" style="width: 400px" placeholder="Kirjuta kommentaar" rows="5"></textarea>
+			</div>
+			<div class="controls">
+				<button id="contact-submit" type="submit" class="btn btn-primary input-medium">Submit</button>
+			</div>
+		</form>
+		<?php
+		$conn=mysql_connect("localhost","root","");
+		$db=mysql_select_db("blog",$conn);
+		mysql_query ('SET NAMES UTF8;');
+		mysql_query ('SET COLLATION_CONNECTION=utf8_general_ci;');
+		mysql_client_encoding($conn);
+		if($_POST!=NULL){
+			$comment_author=$_POST['author'];
+			$comment_text=$_POST['komm'];
+			$post_id=$post['post_id'];
+			$comment_id=$last_comment['comment_id']+1;
+			if($comment_text==NULL){
+				echo ('
+			<div>
+				<span class="label" style="background-color:#ff5849">Sinu kommentaar on tühi!</span>
+			</div>
+		');
+			}
+			else{
+				if($comment_author==NULL){
+					$comment_author="Anonüümne";
+				}
+
+
+				$sql_comment="INSERT INTO `blog`.`comment` (`comment_id`, `comment_text`, `comment_created`, `comment_author`) VALUES(NULL,'$comment_text',CURRENT_TIMESTAMP,'$comment_author')";
+				$sql_comment2="INSERT INTO `blog`.`post_comments` (`post_id`, `comment_id`) VALUES('$post_id','$comment_id')";
+				$qury=mysql_query($sql_comment);
+				$qury2=mysql_query($sql_comment2);
+				if(!$qury){
+					echo mysql_error();
+				}else{
+					if(!$qury2){
+						echo mysql_error();
+					}
+					else{
+						echo ('
+					<div>
+						<span class="notification" style="background-color:#8BA870">Kommentaar sisestati edukalt.</span>
+					</div>
+					');
+						echo('<meta http-equiv="refresh" content="0">');
+					}
+				}
+			}
+		}
+		?>
+	<br>
+
+
+		<div>
+			<?foreach ($comments as $comment):?>
+				<div style="border:1px solid #D1D0CE; width: 400px">
+				<span class="comment" style="background-color:#afe4ff">
+				<?=$comment['comment_text']?>
+
+					<p>Comment posted on <?=$comment['comment_created']?> by <?=$comment['comment_author']?></p>
+				</span>
+				</div>
+				<br>
+			<?endforeach?>
+		</div>
 	</div>
-	<hr />
-	<br />
-	<form action="<?=BASE_URL?>posts/insert_comment/<?=$post['post_id']?>" method="post">
-		<div class="controls controls-row">
-			<input id="name" name="author" type="text" class="span3" style="width: 500px" placeholder="Anonymous">
-		</div>
-		<div class="controls">
-			<textarea id="message" name="comment" class="span6" style="width: 500px" placeholder="Leave a comment" rows="5"></textarea>
-		</div>
-		<div class="controls">
-			<a href="<?=BASE_URL?>posts/insert_comment/<?=$post['post_id']?>"><button id="contact-submit" type="submit" class="btn btn-primary input-medium">Submit</button></a>
-		</div>
-	</form>
-
-</div>
-<hr>
-
-
